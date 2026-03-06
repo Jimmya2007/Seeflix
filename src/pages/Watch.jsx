@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { tmdb, img, EMBED_SOURCES, getPlayerUrl } from '../api/tmdb';
 import MediaRow from '../components/MediaRow';
@@ -13,6 +13,8 @@ const Watch = () => {
   const [related,  setRelated]  = useState([]);
   const [seasons,  setSeasons]  = useState([]);
   const [source,   setSource]   = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const playerWrapRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,18 +44,52 @@ const Watch = () => {
   // Build player src
   const playerSrc = getPlayerUrl(source, type, id, season, episode);
 
+  // Fullscreen toggle
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      playerWrapRef.current?.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   return (
     <div className={styles.page}>
       {/* Player */}
-      <div className={styles.playerWrap}>
+      <div className={`${styles.playerWrap} ${isFullscreen ? styles.fullscreen : ''}`} ref={playerWrapRef}>
         <iframe
           key={playerSrc}
           src={playerSrc}
           className={styles.player}
           allowFullScreen
-          allow="autoplay; fullscreen"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
           title={title}
         />
+        <button 
+          className={styles.fullscreenBtn} 
+          onClick={toggleFullscreen}
+          title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+        >
+          {isFullscreen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+            </svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          )}
+        </button>
       </div>
 
       <div className={styles.body}>
@@ -72,11 +108,16 @@ const Watch = () => {
                   key={src.name}
                   className={`${styles.sourceBtn} ${source === i ? styles.active : ''}`}
                   onClick={() => setSource(i)}
+                  title={src.desc}
                 >
                   {src.name}
+                  <span className={styles.sourceLang}>{src.desc}</span>
                 </button>
               ))}
             </div>
+            <p className={styles.sourceHint}>
+              💡 Chaque lecteur a ses propres options de langue/sous-titres dans les paramètres vidéo
+            </p>
           </div>
 
           <div className={styles.meta}>
