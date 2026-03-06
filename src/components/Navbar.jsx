@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLanguage, LANGUAGES } from '../context/LanguageContext';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -8,6 +9,8 @@ const Navbar = () => {
   const [showSrch, setShowSrch]   = useState(false);
   const location   = useLocation();
   const navigate   = useNavigate();
+  const { lang, setLang, t } = useLanguage();
+  const [showLang, setShowLang] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -25,10 +28,10 @@ const Navbar = () => {
   };
 
   const links = [
-    { to: '/',        label: 'Home'    },
-    { to: '/media',   label: 'Media'   },
-    { to: '/about',   label: 'About'   },
-    { to: '/contact', label: 'Contact' },
+    { to: '/',        label: t('home')    },
+    { to: '/media',   label: t('media')   },
+    { to: '/about',   label: t('about')   },
+    { to: '/contact', label: t('contact') },
   ];
 
   return (
@@ -71,6 +74,29 @@ const Navbar = () => {
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
+      </div>
+
+      {/* Language Selector */}
+      <div className={styles.langWrap}>
+        <button
+          className={styles.langBtn}
+          onClick={() => setShowLang(s => !s)}
+        >
+          {LANGUAGES.find(l => l.code === lang)?.flag} {lang.toUpperCase()}
+        </button>
+        {showLang && (
+          <div className={styles.langDropdown}>
+            {LANGUAGES.map(l => (
+              <button
+                key={l.code}
+                className={`${styles.langOption} ${lang === l.code ? styles.activeLang : ''}`}
+                onClick={() => { setLang(l.code); setShowLang(false); }}
+              >
+                {l.flag} {l.name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

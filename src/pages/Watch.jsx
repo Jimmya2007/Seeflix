@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { tmdb, img, playerUrl } from '../api/tmdb';
+import { tmdb, img, EMBED_SOURCES, getPlayerUrl } from '../api/tmdb';
 import MediaRow from '../components/MediaRow';
 import styles from './Watch.module.css';
 
@@ -12,6 +12,7 @@ const Watch = () => {
   const [episode,  setEpisode]  = useState(1);
   const [related,  setRelated]  = useState([]);
   const [seasons,  setSeasons]  = useState([]);
+  const [source,   setSource]   = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,9 +40,7 @@ const Watch = () => {
   const director = detail.credits?.crew?.find(c => c.job === 'Director')?.name;
 
   // Build player src
-  const playerSrc = type === 'tv'
-    ? `${playerUrl('tv', id)}/${season}/${episode}`
-    : playerUrl('movie', id);
+  const playerSrc = getPlayerUrl(source, type, id, season, episode);
 
   return (
     <div className={styles.page}>
@@ -63,6 +62,22 @@ const Watch = () => {
           <button className={styles.back} onClick={() => navigate(-1)}>
             ← Back
           </button>
+
+          {/* Source selector */}
+          <div className={styles.sourceSelector}>
+            <label>Source:</label>
+            <div className={styles.sourceButtons}>
+              {EMBED_SOURCES.map((src, i) => (
+                <button
+                  key={src.name}
+                  className={`${styles.sourceBtn} ${source === i ? styles.active : ''}`}
+                  onClick={() => setSource(i)}
+                >
+                  {src.name}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className={styles.meta}>
             {detail.vote_average > 0 && (

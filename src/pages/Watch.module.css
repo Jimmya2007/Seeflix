@@ -42,6 +42,45 @@
 }
 .back:hover { color: var(--t1); }
 
+/* Source Selector */
+.sourceSelector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.sourceSelector label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--t2);
+}
+.sourceButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sourceBtn {
+  background: var(--surface2);
+  color: var(--t2);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+}
+.sourceBtn:hover {
+  background: var(--surface);
+  color: var(--t1);
+}
+.sourceBtn.active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
 .meta {
   display: flex; gap: 10px; flex-wrap: wrap;
   align-items: center; margin-bottom: 12px;
