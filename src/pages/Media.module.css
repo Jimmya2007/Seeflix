@@ -1,0 +1,84 @@
+.page { padding: calc(var(--nav-h) + 40px) 48px 80px; min-height: 100vh; }
+
+.header { margin-bottom: 40px; }
+
+.heading {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900; letter-spacing: -.025em;
+  color: var(--t1); margin-bottom: 28px;
+}
+.heading span { color: var(--red); }
+
+/* Tabs */
+.tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+.tab {
+  padding: 10px 24px;
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--t2);
+  font-size: .9rem; font-weight: 700;
+  transition: background .2s, color .2s;
+}
+.tab:hover { background: var(--surface2); color: var(--t1); }
+.tabActive {
+  background: var(--red) !important;
+  color: #fff !important;
+}
+
+/* Genres */
+.genres {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.genreBtn {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--t2);
+  font-size: .8rem; font-weight: 600;
+  transition: background .2s, color .2s;
+  border: 1px solid transparent;
+}
+.genreBtn:hover { color: var(--t1); background: var(--surface2); }
+.genreActive {
+  background: transparent !important;
+  border-color: var(--red) !important;
+  color: var(--red) !important;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+.skeleton {
+  aspect-ratio: 2/3;
+  border-radius: 12px;
+  background: var(--surface);
+  animation: shimmer 1.5s ease infinite;
+}
+
+/* Load more */
+.loadMore { text-align: center; margin-top: 48px; }
+.loadBtn {
+  padding: 13px 40px;
+  background: var(--surface2);
+  color: var(--t1);
+  font-size: .9rem; font-weight: 700;
+  border-radius: 10px;
+  transition: background .2s;
+}
+.loadBtn:hover { background: var(--red); }
+
+/* Empty */
+.empty {
+  text-align: center; padding: 80px 0;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+}
+.empty span { font-size: 3rem; }
+.empty p { color: var(--t3); font-size: 1rem; }
+
+@media (max-width: 700px) {
+  .page { padding: calc(var(--nav-h) + 24px) 20px 60px; }
+}

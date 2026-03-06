@@ -1,0 +1,31 @@
+.section { padding: 0 0 48px; }
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--t1);
+  margin-bottom: 20px;
+  padding: 0 48px;
+}
+
+.scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+}
+.scroll::-webkit-scrollbar { display: none; }
+
+.row {
+  display: flex;
+  gap: 16px;
+  padding: 6px 48px;
+  width: max-content;
+}
+
+@media (max-width: 700px) {
+  .title { padding: 0 20px; }
+  .row   { padding: 6px 20px; }
+}

@@ -1,0 +1,26 @@
+.footer { background: var(--surface); border-top: 1px solid rgba(255,255,255,.04); margin-top: 40px; }
+.inner  { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding: 48px; }
+
+.brand { max-width: 240px; }
+.brand img { margin-bottom: 14px; }
+.tagline { font-size: .82rem; color: var(--t3); line-height: 1.5; }
+
+.cols { display: flex; gap: 56px; }
+.col h4 { font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--t1); margin-bottom: 16px; }
+.col ul { display: flex; flex-direction: column; gap: 10px; }
+.col li, .col a { font-size: .82rem; color: var(--t3); transition: color .2s; }
+.col a:hover { color: var(--red); }
+
+.bottom {
+  padding: 18px 48px;
+  border-top: 1px solid rgba(255,255,255,.04);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: .75rem; color: var(--t3);
+}
+.bottom a { color: var(--red); }
+
+@media (max-width: 700px) {
+  .inner  { padding: 32px 20px; }
+  .bottom { padding: 16px 20px; }
+  .cols   { gap: 32px; }
+}
