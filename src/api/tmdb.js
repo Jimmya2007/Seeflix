@@ -21,56 +21,104 @@ export const tmdb = async (endpoint, params = {}) => {
   return res.json();
 };
 
-// Embed sources - multiple providers with multi-language support
+// Embed sources - 15+ providers for maximum coverage
 // Most sources have built-in language/subtitle selectors in their players
 export const EMBED_SOURCES = [
   {
     name: 'VidSrc Pro',
-    desc: 'Multi-lang subs',
-    movie: (id, lang) => `https://vidsrc.pro/embed/movie/${id}`,
-    tv: (id, s, e, lang) => `https://vidsrc.pro/embed/tv/${id}/${s}/${e}`
+    desc: 'Multi-lang',
+    movie: (id) => `https://vidsrc.pro/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidsrc.pro/embed/tv/${id}/${s}/${e}`
   },
   {
     name: 'VidSrc.cc',
-    desc: 'Multi-audio',
-    movie: (id, lang) => `https://vidsrc.cc/v2/embed/movie/${id}`,
-    tv: (id, s, e, lang) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+    desc: 'HD Quality',
+    movie: (id) => `https://vidsrc.cc/v2/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+  },
+  {
+    name: 'VidSrc.icu',
+    desc: 'Fast',
+    movie: (id) => `https://vidsrc.icu/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidsrc.icu/embed/tv/${id}/${s}/${e}`
   },
   {
     name: 'Embed.su',
     desc: 'Multi-lang',
-    movie: (id, lang) => `https://embed.su/embed/movie/${id}`,
-    tv: (id, s, e, lang) => `https://embed.su/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://embed.su/embed/movie/${id}`,
+    tv: (id, s, e) => `https://embed.su/embed/tv/${id}/${s}/${e}`
   },
   {
-    name: 'SuperEmbed',
-    desc: 'FR/ES/DE subs',
-    movie: (id, lang) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
-    tv: (id, s, e, lang) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+    name: 'VidLink',
+    desc: 'HD',
+    movie: (id) => `https://vidlink.pro/movie/${id}`,
+    tv: (id, s, e) => `https://vidlink.pro/tv/${id}/${s}/${e}`
   },
   {
     name: 'VidBinge',
     desc: 'Multi-lang',
-    movie: (id, lang) => `https://vidbinge.dev/embed/movie/${id}`,
-    tv: (id, s, e, lang) => `https://vidbinge.dev/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://vidbinge.dev/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidbinge.dev/embed/tv/${id}/${s}/${e}`
   },
   {
     name: '2Embed',
     desc: 'Multi-subs',
-    movie: (id, lang) => `https://www.2embed.skin/embed/${id}`,
-    tv: (id, s, e, lang) => `https://www.2embed.skin/embedtv/${id}&s=${s}&e=${e}`
+    movie: (id) => `https://www.2embed.skin/embed/${id}`,
+    tv: (id, s, e) => `https://www.2embed.skin/embedtv/${id}&s=${s}&e=${e}`
+  },
+  {
+    name: 'SuperEmbed',
+    desc: 'FR/ES/DE',
+    movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+    tv: (id, s, e) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
   },
   {
     name: 'SmashyStream',
     desc: 'Multi-audio',
-    movie: (id, lang) => `https://player.smashy.stream/movie/${id}`,
-    tv: (id, s, e, lang) => `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}`
+    movie: (id) => `https://player.smashy.stream/movie/${id}`,
+    tv: (id, s, e) => `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}`
   },
   {
     name: 'MoviesAPI',
+    desc: 'Large DB',
+    movie: (id) => `https://moviesapi.club/movie/${id}`,
+    tv: (id, s, e) => `https://moviesapi.club/tv/${id}-${s}-${e}`
+  },
+  {
+    name: 'VidSrc.xyz',
+    desc: 'Stable',
+    movie: (id) => `https://vidsrc.xyz/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidsrc.xyz/embed/tv/${id}/${s}/${e}`
+  },
+  {
+    name: 'VidSrc.in',
+    desc: 'Fast',
+    movie: (id) => `https://vidsrc.in/embed/movie/${id}`,
+    tv: (id, s, e) => `https://vidsrc.in/embed/tv/${id}/${s}/${e}`
+  },
+  {
+    name: 'AutoEmbed',
+    desc: 'Multi-src',
+    movie: (id) => `https://autoembed.co/movie/tmdb/${id}`,
+    tv: (id, s, e) => `https://autoembed.co/tv/tmdb/${id}-${s}-${e}`
+  },
+  {
+    name: 'NontonGo',
+    desc: 'Asian+',
+    movie: (id) => `https://www.NontonGo.win/embed/movie/${id}`,
+    tv: (id, s, e) => `https://www.NontonGo.win/embed/tv/${id}/${s}/${e}`
+  },
+  {
+    name: 'Rive',
+    desc: '4K HDR',
+    movie: (id) => `https://rivestream.live/embed?type=movie&id=${id}`,
+    tv: (id, s, e) => `https://rivestream.live/embed?type=tv&id=${id}&season=${s}&episode=${e}`
+  },
+  {
+    name: 'FilmXY',
     desc: 'Multi-lang',
-    movie: (id, lang) => `https://moviesapi.club/movie/${id}`,
-    tv: (id, s, e, lang) => `https://moviesapi.club/tv/${id}-${s}-${e}`
+    movie: (id) => `https://filmxy.wafflehacker.io/embed/movie/${id}`,
+    tv: (id, s, e) => `https://filmxy.wafflehacker.io/embed/tv/${id}/${s}/${e}`
   }
 ];
 
