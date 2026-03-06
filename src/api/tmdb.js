@@ -16,6 +16,9 @@ export const tmdb = async (endpoint, params = {}) => {
   return res.json();
 };
 
-// Vidsrc embed URLs — free streaming source
+// Embed URLs — free streaming sources with fallbacks
 export const playerUrl = (type, id) =>
-  `https://vidsrc.to/embed/${type}/${id}`;
+  `https://vidsrc.xyz/embed/${type}/${id}`;
+
+export const playerUrlAlt = (type, id) =>
+  `https://www.2embed.cc/embed/${id}`;
