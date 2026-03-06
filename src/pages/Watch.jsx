@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { tmdb, img, EMBED_SOURCES, getPlayerUrl } from '../api/tmdb';
-import { getTorrentsForMovie } from '../api/torrent';
 import MediaRow from '../components/MediaRow';
-import TorrentPlayer from '../components/TorrentPlayer';
 import styles from './Watch.module.css';
 
 const Watch = () => {
@@ -16,10 +14,6 @@ const Watch = () => {
   const [seasons,  setSeasons]  = useState([]);
   const [source,   setSource]   = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [torrents, setTorrents] = useState([]);
-  const [showTorrent, setShowTorrent] = useState(false);
-  const [selectedMagnet, setSelectedMagnet] = useState(null);
-  const [loadingTorrents, setLoadingTorrents] = useState(false);
   const playerWrapRef = useRef(null);
 
   useEffect(() => {
@@ -31,18 +25,6 @@ const Watch = () => {
     });
     tmdb(`/${type === 'tv' ? 'tv' : 'movie'}/${id}/similar`)
       .then(d => setRelated(d.results?.slice(0, 12) || []));
-    
-    // Load torrents for movies
-    if (type === 'movie') {
-      tmdb(`/movie/${id}/external_ids`).then(async (ids) => {
-        if (ids.imdb_id) {
-          setLoadingTorrents(true);
-          const t = await getTorrentsForMovie(ids.imdb_id);
-          setTorrents(t);
-          setLoadingTorrents(false);
-        }
-      }).catch(() => {});
-    }
   }, [type, id]);
 
   if (!detail) return (
@@ -138,35 +120,6 @@ const Watch = () => {
             </p>
           </div>
 
-          {/* Torrent section for movies */}
-          {type === 'movie' && (
-            <div className={styles.torrentSection}>
-              <h3 className={styles.torrentTitle}>🎬 Torrent (P2P)</h3>
-              {loadingTorrents && <p className={styles.torrentLoading}>Searching torrents...</p>}
-              {!loadingTorrents && torrents.length === 0 && (
-                <p className={styles.torrentNone}>No torrents found for this movie</p>
-              )}
-              {torrents.length > 0 && (
-                <div className={styles.torrentList}>
-                  {torrents.map((t, i) => (
-                    <button
-                      key={i}
-                      className={styles.torrentBtn}
-                      onClick={() => { setSelectedMagnet(t.magnet); setShowTorrent(true); }}
-                    >
-                      <span className={styles.torrentQuality}>{t.quality}</span>
-                      <span className={styles.torrentSize}>{t.size}</span>
-                      <span className={styles.torrentSeeds}>🌱 {t.seeds}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-              <p className={styles.torrentHint}>
-                ⚠️ Torrent streaming uses P2P. May be slow to start.
-              </p>
-            </div>
-          )}
-
           <div className={styles.meta}>
             {detail.vote_average > 0 && (
               <span className={styles.rating}>★ {detail.vote_average.toFixed(1)}</span>
@@ -240,14 +193,6 @@ const Watch = () => {
           </div>
         )}
       </div>
-
-      {/* Torrent Player Modal */}
-      {showTorrent && selectedMagnet && (
-        <TorrentPlayer 
-          magnet={selectedMagnet} 
-          onClose={() => { setShowTorrent(false); setSelectedMagnet(null); }} 
-        />
-      )}
     </div>
   );
 };
