@@ -78,7 +78,6 @@ const Media = () => {
           <h1 className={styles.heading}>Browse Media</h1>
         )}
 
-        {/* Tabs */}
         {!query && (
           <div className={styles.tabs}>
             {['movies','tv'].map(t => (
@@ -93,7 +92,6 @@ const Media = () => {
           </div>
         )}
 
-        {/* Genres */}
         {!query && (
           <div className={styles.genres}>
             <button
@@ -111,7 +109,6 @@ const Media = () => {
         )}
       </div>
 
-      {/* Grid */}
       <div className={styles.grid}>
         {items.map(item => (
           <MediaCard
@@ -125,7 +122,6 @@ const Media = () => {
         ))}
       </div>
 
-      {/* Load more */}
       {!loading && page < total && items.length > 0 && (
         <div className={styles.loadMore}>
           <button

@@ -1,13 +1,10 @@
-// TMDB API key from environment variable
 export const TMDB_KEY = import.meta.env.VITE_TMDB_API_KEY || '5fbddf6b517048e25bc3ac1bbeafb919';
 export const TMDB_BASE = 'https://api.themoviedb.org/3';
 export const IMG_BASE  = 'https://image.tmdb.org/t/p';
 
-// Image quality options: w300, w500, w780, w1280, original
 export const img = (path, size = 'w780') =>
   path ? `${IMG_BASE}/${size}${path}` : null;
 
-// High quality image for backdrops and hero sections
 export const imgHQ = (path) =>
   path ? `${IMG_BASE}/original${path}` : null;
 
@@ -21,8 +18,6 @@ export const tmdb = async (endpoint, params = {}) => {
   return res.json();
 };
 
-// Embed sources - 15+ providers for maximum coverage
-// Most sources have built-in language/subtitle selectors in their players
 export const EMBED_SOURCES = [
   {
     name: 'VidSrc Pro',

@@ -51,7 +51,6 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Search */}
       <div className={styles.searchWrap}>
         {showSrch && (
           <form onSubmit={handleSearch} className={styles.searchForm}>
@@ -76,7 +75,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Language Selector */}
       <div className={styles.langWrap}>
         <button
           className={styles.langBtn}

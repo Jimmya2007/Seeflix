@@ -30,13 +30,11 @@ const HeroBanner = () => {
 
   return (
     <div className={styles.hero}>
-      {/* Background */}
       <div className={styles.bg} key={idx}>
         {bg && <img src={bg} alt={title} className={styles.bgImg} />}
         <div className={styles.gradients} />
       </div>
 
-      {/* Content */}
       <div className={styles.content} key={`c-${idx}`}>
         <div className={styles.meta}>
           <span className={styles.badge}>{type === 'tv' ? 'TV Show' : 'Movie'}</span>
@@ -72,7 +70,6 @@ const HeroBanner = () => {
         </div>
       </div>
 
-      {/* Slide dots */}
       <div className={styles.dots}>
         {movies.map((_, i) => (
           <button

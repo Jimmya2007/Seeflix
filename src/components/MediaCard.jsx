@@ -39,7 +39,6 @@ const MediaCard = ({ item, type = 'movie' }) => {
           </div>
         )}
 
-        {/* Overlay on hover */}
         <div className={styles.overlay}>
           <div className={styles.playBtn}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -49,14 +48,12 @@ const MediaCard = ({ item, type = 'movie' }) => {
           <span className={styles.watchLabel}>Watch Now</span>
         </div>
 
-        {/* Rating badge */}
         {rating && (
           <div className={styles.rating}>
             <span className={styles.star}>★</span>{rating}
           </div>
         )}
 
-        {/* Type badge */}
         <div className={styles.typeBadge}>
           {mediaType === 'tv' ? 'TV' : 'FILM'}
         </div>

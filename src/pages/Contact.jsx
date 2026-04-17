@@ -21,7 +21,6 @@ const Contact = () => {
         </div>
 
         <div className={styles.layout}>
-          {/* Form */}
           <div className={styles.formWrap}>
             {sent ? (
               <div className={styles.success}>
@@ -63,7 +62,6 @@ const Contact = () => {
             )}
           </div>
 
-          {/* Info */}
           <div className={styles.info}>
             {[
               { icon: '📧', label: 'Email',   value: 'contact@seeflix.com' },

@@ -41,10 +41,8 @@ const Watch = () => {
   const cast     = detail.credits?.cast?.slice(0, 6).map(c => c.name).join(', ');
   const director = detail.credits?.crew?.find(c => c.job === 'Director')?.name;
 
-  // Build player src
   const playerSrc = getPlayerUrl(source, type, id, season, episode);
 
-  // Fullscreen toggle
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       playerWrapRef.current?.requestFullscreen();
@@ -65,7 +63,6 @@ const Watch = () => {
 
   return (
     <div className={styles.page}>
-      {/* Player */}
       <div className={`${styles.playerWrap} ${isFullscreen ? styles.fullscreen : ''}`} ref={playerWrapRef}>
         <iframe
           key={playerSrc}
@@ -93,13 +90,11 @@ const Watch = () => {
       </div>
 
       <div className={styles.body}>
-        {/* Info */}
         <div className={styles.info}>
           <button className={styles.back} onClick={() => navigate(-1)}>
             ← Back
           </button>
 
-          {/* Source selector */}
           <div className={styles.sourceSelector}>
             <label>Source:</label>
             <div className={styles.sourceButtons}>
@@ -147,7 +142,6 @@ const Watch = () => {
           )}
         </div>
 
-        {/* Season/Episode picker for TV */}
         {type === 'tv' && seasons.length > 0 && (
           <div className={styles.picker}>
             <h3 className={styles.pickerTitle}>Episodes</h3>
@@ -186,7 +180,6 @@ const Watch = () => {
           </div>
         )}
 
-        {/* Related */}
         {related.length > 0 && (
           <div className={styles.related}>
             <MediaRow title="You May Also Like" items={related} type={type} />
