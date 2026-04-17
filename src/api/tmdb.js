@@ -1,5 +1,5 @@
-// TMDB free API key (public read-only)
-export const TMDB_KEY  = '5fbddf6b517048e25bc3ac1bbeafb919';
+// TMDB API key from environment variable
+export const TMDB_KEY = import.meta.env.VITE_TMDB_API_KEY || '5fbddf6b517048e25bc3ac1bbeafb919';
 export const TMDB_BASE = 'https://api.themoviedb.org/3';
 export const IMG_BASE  = 'https://image.tmdb.org/t/p';
 
